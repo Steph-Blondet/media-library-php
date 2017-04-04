@@ -25,7 +25,7 @@ include("includes/header.php"); ?>
   <div class="wrapper">
     <h1><?php
     if ($section != null) {
-      echo "<a href='catalog.php'> Full Catalog</a> &gt; ";
+      echo "<a href='catalog.php'> Full Catalog</a> &gt ";
     }
       echo $pageTitle; ?></h1>
     <ul class="items">
