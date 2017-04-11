@@ -1,4 +1,24 @@
 <?php
+ob_start();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $name = $_POST["name"];
+  $email = $_POST["email"];
+  $details = $_POST["details"];
+
+  echo "<pre>";
+  $email_body = "";
+  $email_body .= "Name " . $name . "\n";
+  $email_body .= "Email " . $email . "\n";
+  $email_body .= "Details " . $details . "\n";
+  echo $email_body;
+  echo "</pre>";
+
+  //To Do: Send email
+  header("location:suggest.php?status=thanks");
+  ob_flush();
+  ob_end_clean();
+}
+
 $pageTitle = "Suggest a Media Item";
 $section = "suggest";
 
@@ -7,9 +27,12 @@ include("includes/header.php"); ?>
 <div class="section page">
   <div class="wrapper">
     <h1>Suggest a Media Item</h1>
+    <?php if (isset($_GET["status"]) && $_GET["status"] == "thanks") {
+      echo "<p>Thanks for the email! I&rsquo;ll check out your suggestion shortly!</p>";
+    } else { ?>
     <p>If you think there is something I&rsquo;m missing, let me know! Complete the form to send me an email.</p>
 
-    <form method="post" action="thanks.php">
+    <form method="post" action="suggest.php">
       <table>
         <tr>
           <th><label for="name">Name</label></th>
@@ -24,9 +47,9 @@ include("includes/header.php"); ?>
           <td><textarea name="details" id="details"></textarea></td>
         </tr>
       </table>
-      <input type="submit"value="Send"/>
+      <input type="submit" value="Send"/>
     </form>
-
+    <?php } ?>
   </div>
 
 </div>
